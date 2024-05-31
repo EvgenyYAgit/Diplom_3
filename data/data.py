@@ -1,0 +1,65 @@
+import random
+import requests
+import string
+import locators.basic_functionality_locators
+import locators.password_recovery_locators
+import locators.personal_area_locators
+import locators.section_order_feed_locators
+
+
+# удаление пользователя по api
+def api_user_delete(token):
+    headers = {
+        'Authorization': f'{token}'
+    }
+    requests.delete("https://stellarburgers.nomoreparties.site/api/auth/user", headers=headers)
+
+
+# генерация данных для пользователя
+def generate_unique_data():
+    def generate_random_string(length):
+        letters = string.ascii_lowercase
+        random_string = ''.join(random.choice(letters) for i in range(length))
+        return random_string
+
+    # создаём список, чтобы метод мог его вернуть
+    user_data = []
+
+    # генерируем емайл, пароль и имя
+    email = generate_random_string(5) + '@' + generate_random_string(5) + '.ru'
+    password = generate_random_string(10)
+    name = generate_random_string(10)
+    user_data.append(email)
+    user_data.append(password)
+    user_data.append(name)
+    return user_data
+
+
+# создаем уникального пользователя по апи, заходим в личный кабинет и возвращаем токен для будущего удаления
+def login_unique_user(driver):
+    user_data = generate_unique_data()
+    payload = {
+        "email": f'{user_data[0]}',
+        "password": f'{user_data[1]}',
+        "name": f'{user_data[2]}'
+    }
+    response = requests.post("https://stellarburgers.nomoreparties.site/api/auth/register", data=payload)
+    headers = response.json()['accessToken']
+    data_user = payload
+    token = headers
+    user_email = data_user['email']
+    user_password = data_user['password']
+    driver.click_on_section(locators.personal_area_locators.personal_area)
+    driver.wait_element_located(locators.personal_area_locators.entrance_text)
+    driver.input_text(locators.personal_area_locators.string_input_email, user_email)
+    driver.input_text(locators.personal_area_locators.string_input_password, user_password)
+    driver.click_on_section(locators.personal_area_locators.entrance_button)
+    return token
+
+
+# переход к восстановлению пароля
+def restore_password(driver):
+    driver.click_on_section(locators.password_recovery_locators.login_button)
+    driver.wait_element_clickable(locators.password_recovery_locators.restore_password)
+    driver.click_on_section(locators.password_recovery_locators.restore_password)
+
