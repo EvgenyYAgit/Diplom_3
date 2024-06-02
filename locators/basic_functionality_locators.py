@@ -17,7 +17,7 @@ ingredient_text = [By.XPATH, "//h2[text()='Детали ингредиента']
 
 
 # кнопка закрыть окно ингредиента
-exit_button = [By.XPATH, "/html/body/div[1]/div/section[1]/div[1]/button"]
+exit_button = [By.XPATH, "//section[@class='Modal_modal_opened__3ISw4 Modal_modal__P3_V5']/*[1]/*[2]"]
 # место куда перетягивать ингредиента
 place_for_ingredient = [By.XPATH, "//section[@class='BurgerConstructor_basket__29Cd7 mt-25 ']"]
 # количество элементов ингредиента
