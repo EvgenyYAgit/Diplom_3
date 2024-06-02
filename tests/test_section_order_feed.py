@@ -1,7 +1,7 @@
 import allure
 from pages.home_page import HomePage
 import data.variables
-import data.data
+import data.helpers
 import data.urls
 import locators.section_order_feed_locators
 import locators.personal_area_locators
@@ -26,7 +26,7 @@ class TestSectionOrderFeed:
         some_object = HomePage(driver)
         some_object.get_site(data.urls.site)
         # создание уникального пользователя, логин и возвращение токена
-        token = data.data.login_unique_user(some_object)
+        token = data.helpers.login_unique_user(some_object)
         some_object.wait_element_located(locators.section_order_feed_locators.assemble_the_burger_text)
         some_object.drag_and_drop_element(locators.basic_functionality_locators.ingredient_button,
                                           locators.basic_functionality_locators.place_for_ingredient)
@@ -47,7 +47,7 @@ class TestSectionOrderFeed:
         some_object.wait_element_located(locators.basic_functionality_locators.order_feed_text)
         list_orders = some_object.get_text_of_elements(locators.section_order_feed_locators.list_ready_order)
         list_number_orders = [list_orders.text for list_orders in list_orders]
-        data.data.api_user_delete(token)
+        data.helpers.api_user_delete(token)
         assert number_order[1:] in list_number_orders
 
     @allure.title('Счётчик "Выполнено за всё время" увеличивается при новом заказе')
@@ -58,7 +58,7 @@ class TestSectionOrderFeed:
         some_object.wait_element_located(locators.section_order_feed_locators.order_feed_text)
         all_time = some_object.get_text_of_element(locators.section_order_feed_locators.counter_order_all_time)
         # создание уникального пользователя, логин и возвращение токена
-        token = data.data.login_unique_user(some_object)
+        token = data.helpers.login_unique_user(some_object)
         some_object.wait_element_located(locators.section_order_feed_locators.assemble_the_burger_text)
         some_object.drag_and_drop_element(locators.basic_functionality_locators.ingredient_button,
                                           locators.basic_functionality_locators.place_for_ingredient)
@@ -71,7 +71,7 @@ class TestSectionOrderFeed:
         some_object.wait_element_located(locators.section_order_feed_locators.order_feed_text)
         new_all_time = some_object.get_text_of_element(locators.section_order_feed_locators.counter_order_all_time)
         # передается токен и удаляется пользователь
-        data.data.api_user_delete(token)
+        data.helpers.api_user_delete(token)
         assert int(new_all_time) > int(all_time)
 
     @allure.title('Счётчик "Выполнено за сегодня" увеличивается при новом заказе')
@@ -83,7 +83,7 @@ class TestSectionOrderFeed:
         some_object.wait_element_located(locators.section_order_feed_locators.order_feed_text)
         today = some_object.get_text_of_element(locators.section_order_feed_locators.counter_order_today)
         # создание уникального пользователя, логин и возвращение токена
-        token = data.data.login_unique_user(some_object)
+        token = data.helpers.login_unique_user(some_object)
         some_object.wait_element_located(locators.section_order_feed_locators.assemble_the_burger_text)
         some_object.drag_and_drop_element(locators.basic_functionality_locators.ingredient_button,
                                           locators.basic_functionality_locators.place_for_ingredient)
@@ -96,7 +96,7 @@ class TestSectionOrderFeed:
         some_object.wait_element_located(locators.section_order_feed_locators.order_feed_text)
         today_new = some_object.get_text_of_element(locators.section_order_feed_locators.counter_order_today)
         # передается токен и удаляется пользователь
-        data.data.api_user_delete(token)
+        data.helpers.api_user_delete(token)
         assert int(today_new) > int(today)
 
     @allure.title('Новый заказ появляется в разделе "В работе"')
@@ -104,7 +104,7 @@ class TestSectionOrderFeed:
         some_object = HomePage(driver)
         some_object.get_site(data.urls.site)
         # создание уникального пользователя, логин и возвращение токена
-        token = data.data.login_unique_user(some_object)
+        token = data.helpers.login_unique_user(some_object)
         some_object.wait_element_located(locators.section_order_feed_locators.assemble_the_burger_text)
         some_object.drag_and_drop_element(locators.basic_functionality_locators.ingredient_button,
                                           locators.basic_functionality_locators.place_for_ingredient)
@@ -118,5 +118,5 @@ class TestSectionOrderFeed:
         some_object.wait_element_will_be_visible(locators.section_order_feed_locators.in_work_order, order_number)
         in_work_order = some_object.get_text_of_element(locators.section_order_feed_locators.in_work_order)
         # передается токен и удаляется пользователь
-        data.data.api_user_delete(token)
+        data.helpers.api_user_delete(token)
         assert order_number in in_work_order

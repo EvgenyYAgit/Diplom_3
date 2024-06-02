@@ -1,7 +1,7 @@
 import allure
 from pages.home_page import HomePage
 import data.variables
-import data.data
+import data.helpers
 import data.urls
 import locators.password_recovery_locators
 
@@ -13,7 +13,7 @@ class TestPasswordRecovery:
         some_object = HomePage(driver)
         some_object.get_site(data.urls.site)
         # переход к восстановлению пароля
-        data.data.restore_password(some_object)
+        data.helpers.restore_password(some_object)
         assert data.variables.text_password_recovery == some_object.get_text_of_element(
             locators.password_recovery_locators.text_restore_password)
 
@@ -22,7 +22,7 @@ class TestPasswordRecovery:
         some_object = HomePage(driver)
         some_object.get_site(data.urls.site)
         # переход к восстановлению пароля
-        data.data.restore_password(some_object)
+        data.helpers.restore_password(some_object)
         some_object.input_text(locators.password_recovery_locators.string_input_email,
                                data.variables.password_for_recovery)
         some_object.click_on_section(locators.password_recovery_locators.restore_button)

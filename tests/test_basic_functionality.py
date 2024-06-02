@@ -1,7 +1,7 @@
 import allure
 from pages.home_page import HomePage
 import data.variables
-import data.data
+import data.helpers
 import data.urls
 import locators.basic_functionality_locators
 import locators.personal_area_locators
@@ -67,11 +67,11 @@ class TestBasicFunctionality:
         some_object = HomePage(driver)
         some_object.get_site(data.urls.site)
         # создается пользователь по апи и передается токен
-        token = data.data.login_unique_user(driver)
+        token = data.helpers.login_unique_user(driver)
         some_object.wait_element_clickable(locators.basic_functionality_locators.order_button)
         some_object.click_on_section(locators.basic_functionality_locators.order_button)
         some_object.wait_element_located(locators.basic_functionality_locators.cook_start_text)
         excepted = some_object.get_text_of_element(locators.basic_functionality_locators.cook_start_text)
         # передается токен и удаляется пользователь
-        data.data.api_user_delete(token)
+        data.helpers.api_user_delete(token)
         assert data.variables.text_order_being_prepared == excepted
