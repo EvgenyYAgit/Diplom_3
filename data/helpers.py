@@ -6,9 +6,10 @@ import locators.password_recovery_locators
 import locators.personal_area_locators
 import locators.section_order_feed_locators
 import urls
+import allure
 
 
-# удаление пользователя по api
+@allure.step('Удаление пользователя по api')
 def api_user_delete(token):
     headers = {
         'Authorization': f'{token}'
@@ -16,7 +17,7 @@ def api_user_delete(token):
     requests.delete(urls.url_for_delete, headers=headers)
 
 
-# генерация данных для пользователя
+@allure.step('Генерация данных для пользователя')
 def generate_unique_data():
     def generate_random_string(length):
         letters = string.ascii_lowercase
@@ -36,7 +37,7 @@ def generate_unique_data():
     return user_data
 
 
-# создаем уникального пользователя по апи, заходим в личный кабинет и возвращаем токен для будущего удаления
+@allure.step('Создание пользователя по api, логин и возврат токена для удаления')
 def login_unique_user(driver):
     user_data = generate_unique_data()
     payload = {
@@ -58,9 +59,8 @@ def login_unique_user(driver):
     return token
 
 
-# переход к восстановлению пароля
+@allure.step('Переход к восстановлению пароля')
 def restore_password(driver):
     driver.click_on_section(locators.password_recovery_locators.login_button)
     driver.wait_element_clickable(locators.password_recovery_locators.restore_password)
     driver.click_on_section(locators.password_recovery_locators.restore_password)
-
