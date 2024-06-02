@@ -5,6 +5,7 @@ import locators.basic_functionality_locators
 import locators.password_recovery_locators
 import locators.personal_area_locators
 import locators.section_order_feed_locators
+import urls
 
 
 # удаление пользователя по api
@@ -12,7 +13,7 @@ def api_user_delete(token):
     headers = {
         'Authorization': f'{token}'
     }
-    requests.delete("https://stellarburgers.nomoreparties.site/api/auth/user", headers=headers)
+    requests.delete(urls.url_for_delete, headers=headers)
 
 
 # генерация данных для пользователя
@@ -43,7 +44,7 @@ def login_unique_user(driver):
         "password": f'{user_data[1]}',
         "name": f'{user_data[2]}'
     }
-    response = requests.post("https://stellarburgers.nomoreparties.site/api/auth/register", data=payload)
+    response = requests.post(urls.url_for_register, data=payload)
     headers = response.json()['accessToken']
     data_user = payload
     token = headers

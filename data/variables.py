@@ -1,6 +1,3 @@
-# Стартовая страница
-site = "https://stellarburgers.nomoreparties.site/"
-
 # Переменные
 # Пароль для восстановления
 password_for_recovery = '12345678'

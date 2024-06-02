@@ -2,6 +2,7 @@ import allure
 from pages.home_page import HomePage
 import data.variables
 import data.data
+import data.urls
 import locators.section_order_feed_locators
 import locators.personal_area_locators
 import locators.basic_functionality_locators
@@ -12,7 +13,7 @@ class TestSectionOrderFeed:
     @allure.title('Всплывающее окно с деталями заказа')
     def test_pop_up_window_order_details(self, driver):
         some_object = HomePage(driver)
-        some_object.get_site(data.variables.site)
+        some_object.get_site(data.urls.site)
         some_object.click_on_section(locators.section_order_feed_locators.order_feed_button)
         some_object.wait_element_located(locators.section_order_feed_locators.order_feed_text)
         some_object.click_on_section(locators.section_order_feed_locators.first_order)
@@ -23,7 +24,7 @@ class TestSectionOrderFeed:
     @allure.title('Заказы из «История заказов» отображаются на странице «Лента заказов»')
     def test_same_orders_in_different_places(self, driver):
         some_object = HomePage(driver)
-        some_object.get_site(data.variables.site)
+        some_object.get_site(data.urls.site)
         # создание уникального пользователя, логин и возвращение токена
         token = data.data.login_unique_user(some_object)
         some_object.wait_element_located(locators.section_order_feed_locators.assemble_the_burger_text)
@@ -52,7 +53,7 @@ class TestSectionOrderFeed:
     @allure.title('Счётчик "Выполнено за всё время" увеличивается при новом заказе')
     def test_the_counter_increases_new_order_all_time(self, driver):
         some_object = HomePage(driver)
-        some_object.get_site(data.variables.site)
+        some_object.get_site(data.urls.site)
         some_object.click_on_section(locators.section_order_feed_locators.order_feed_button)
         some_object.wait_element_located(locators.section_order_feed_locators.order_feed_text)
         all_time = some_object.get_text_of_element(locators.section_order_feed_locators.counter_order_all_time)
@@ -76,7 +77,7 @@ class TestSectionOrderFeed:
     @allure.title('Счётчик "Выполнено за сегодня" увеличивается при новом заказе')
     def test_counter_increases_new_order_today(self, driver):
         some_object = HomePage(driver)
-        some_object.get_site(data.variables.site)
+        some_object.get_site(data.urls.site)
         some_object.wait_element_clickable(locators.section_order_feed_locators.order_feed_button)
         some_object.click_on_section(locators.section_order_feed_locators.order_feed_button)
         some_object.wait_element_located(locators.section_order_feed_locators.order_feed_text)
@@ -101,7 +102,7 @@ class TestSectionOrderFeed:
     @allure.title('Новый заказ появляется в разделе "В работе"')
     def test_new_order_appears_in_progress_section(self, driver):
         some_object = HomePage(driver)
-        some_object.get_site(data.variables.site)
+        some_object.get_site(data.urls.site)
         # создание уникального пользователя, логин и возвращение токена
         token = data.data.login_unique_user(some_object)
         some_object.wait_element_located(locators.section_order_feed_locators.assemble_the_burger_text)

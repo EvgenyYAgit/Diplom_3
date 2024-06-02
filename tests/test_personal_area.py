@@ -1,6 +1,7 @@
 import locators.personal_area_locators
 import allure
 import data.data
+import data.urls
 from pages.home_page import HomePage
 import data.variables
 
@@ -9,7 +10,7 @@ class TestPersonalArea:
     @allure.title('Переход в «Личный кабинет»')
     def test_go_personal_account(self, driver):
         some_object = HomePage(driver)
-        some_object.get_site(data.variables.site)
+        some_object.get_site(data.urls.site)
         some_object.wait_element_clickable(locators.personal_area_locators.personal_area)
         some_object.click_on_section(locators.personal_area_locators.personal_area)
         some_object.wait_element_located(locators.personal_area_locators.entrance_text)
@@ -19,7 +20,7 @@ class TestPersonalArea:
     @allure.title('Переход в раздел «История заказов»')
     def test_go_order_history_section(self, driver):
         some_object = HomePage(driver)
-        some_object.get_site(data.variables.site)
+        some_object.get_site(data.urls.site)
         # создается пользователь по апи и передается токен
         token = data.data.login_unique_user(some_object)
         some_object.wait_element_clickable(locators.personal_area_locators.personal_area)
@@ -34,7 +35,7 @@ class TestPersonalArea:
     @allure.title('Выход из аккаунта')
     def test_log_out(self, driver):
         some_object = HomePage(driver)
-        some_object.get_site(data.variables.site)
+        some_object.get_site(data.urls.site)
         # создается пользователь по апи и передается токен
         token = data.data.login_unique_user(some_object)
         some_object.wait_element_clickable(locators.personal_area_locators.personal_area)
