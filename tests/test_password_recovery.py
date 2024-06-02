@@ -12,8 +12,9 @@ class TestPasswordRecovery:
     def test_recovery_page(self, driver):
         some_object = HomePage(driver)
         some_object.get_site(data.urls.site)
-        # переход к восстановлению пароля
-        data.helpers.restore_password(some_object)
+        some_object.click_on_section(locators.password_recovery_locators.login_button)
+        some_object.wait_element_clickable(locators.password_recovery_locators.restore_password)
+        some_object.click_on_section(locators.password_recovery_locators.restore_password)
         assert data.variables.text_password_recovery == some_object.get_text_of_element(
             locators.password_recovery_locators.text_restore_password)
 
@@ -21,8 +22,9 @@ class TestPasswordRecovery:
     def test_click_on_restore_button(self, driver):
         some_object = HomePage(driver)
         some_object.get_site(data.urls.site)
-        # переход к восстановлению пароля
-        data.helpers.restore_password(some_object)
+        some_object.click_on_section(locators.password_recovery_locators.login_button)
+        some_object.wait_element_clickable(locators.password_recovery_locators.restore_password)
+        some_object.click_on_section(locators.password_recovery_locators.restore_password)
         some_object.input_text(locators.password_recovery_locators.string_input_email,
                                data.variables.password_for_recovery)
         some_object.click_on_section(locators.password_recovery_locators.restore_button)
