@@ -22,5 +22,3 @@ my_order = [By.XPATH, "//h2[text()='Люминесцентный space крат�
 
 # кнопка выход
 exit_button = [By.XPATH, "//button[text()='Выход']"]
-# текст вход
-enter_text = [By.XPATH, "//h2[text()='Вход']"]

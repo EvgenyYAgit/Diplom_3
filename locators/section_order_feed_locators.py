@@ -24,6 +24,8 @@ history_order_button = [By.XPATH, "//a[text()='История заказов']"]
 order_text = [By.XPATH, "//p[@class='text text_type_digits-default']"]
 # список готовых заказов
 list_ready_order = [By.XPATH, "//li[@class='text text_type_digits-default mb-2']"]
+# кнопка конструктор
+constructor_button = [By.XPATH, "//p[text()='Конструктор']"]
 
 # счетчик выполнено за все время
 counter_order_all_time = [By.XPATH, "//p[text()='Выполнено за все время:']/following-sibling::p"]

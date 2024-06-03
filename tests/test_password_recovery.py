@@ -1,44 +1,39 @@
 import allure
-from pages.home_page import HomePage
+from pages.password_recovery_page import PasswordRecoveryPage
 import data.variables
 import data.helpers
 import data.urls
-import locators.password_recovery_locators
 
 
 class TestPasswordRecovery:
 
     @allure.title('Переход на страницу восстановления пароля по кнопке «Восстановить пароль»')
     def test_recovery_page(self, driver):
-        some_object = HomePage(driver)
-        some_object.get_site(data.urls.site)
-        some_object.click_on_section(locators.password_recovery_locators.login_button)
-        some_object.wait_element_clickable(locators.password_recovery_locators.restore_password)
-        some_object.click_on_section(locators.password_recovery_locators.restore_password)
-        assert data.variables.text_password_recovery == some_object.get_text_of_element(
-            locators.password_recovery_locators.text_restore_password)
+        page = PasswordRecoveryPage(driver)
+        page.go_to_site()
+        page.click_login()
+        page.click_restore_password()
+        excepted = page.get_text_restore_password()
+        assert data.variables.text_password_recovery == excepted
 
     @allure.title('Ввод почты и клик по кнопке «Восстановить»')
     def test_click_on_restore_button(self, driver):
-        some_object = HomePage(driver)
-        some_object.get_site(data.urls.site)
-        some_object.click_on_section(locators.password_recovery_locators.login_button)
-        some_object.wait_element_clickable(locators.password_recovery_locators.restore_password)
-        some_object.click_on_section(locators.password_recovery_locators.restore_password)
-        some_object.input_text(locators.password_recovery_locators.string_input_email,
-                               data.variables.password_for_recovery)
-        some_object.click_on_section(locators.password_recovery_locators.restore_button)
-        some_object.wait_element_clickable(locators.password_recovery_locators.save_button)
-        assert data.variables.text_save == some_object.get_text_of_element(
-            locators.password_recovery_locators.save_button)
+        page = PasswordRecoveryPage(driver)
+        page.go_to_site()
+        page.click_login()
+        page.click_restore_password()
+        page.input_password_text()
+        page.click_restore_button()
+        page.wait_save_button()
+        excepted = page.get_text_save_button()
+        assert data.variables.text_save == excepted
 
     @allure.title('Клик по кнопке показать/скрыть пароль делает поле активным — подсвечивает его')
     def test_password_field_highlighting(self, driver):
-        some_object = HomePage(driver)
-        some_object.get_site(data.urls.site)
-        some_object.wait_element_clickable(locators.password_recovery_locators.login_button)
-        some_object.click_on_section(locators.password_recovery_locators.login_button)
-        some_object.wait_element_clickable(locators.password_recovery_locators.restore_password)
-        some_object.click_on_section(locators.password_recovery_locators.eya_password)
-        assert data.variables.text_password == some_object.get_text_of_element(
-            locators.password_recovery_locators.area_light_password)
+        page = PasswordRecoveryPage(driver)
+        page.go_to_site()
+        page.click_login()
+        page.wait_clickable_restore_password()
+        page.click_eya_password()
+        excepted = page.get_text_area_light_password()
+        assert data.variables.text_password == excepted
