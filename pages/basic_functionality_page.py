@@ -2,7 +2,6 @@ import locators.personal_area_locators
 import data.urls
 import allure
 import locators
-from seletools.actions import drag_and_drop
 from pages.basic_page import BasePage
 
 
@@ -82,12 +81,7 @@ class BasicFunctionalityPage(BasePage):
         text = self.get_text_of_element(locators.basic_functionality_locators.cook_start_text)
         return text
 
-    @allure.step('Перенос элемента')
-    def drag_and_drop_element(self):
-        source = self.driver.find_element(*locators.basic_functionality_locators.ingredient_button)
-        target = self.driver.find_element(*locators.basic_functionality_locators.place_for_ingredient)
-        drag_and_drop(self.driver, source, target)
-
-    @allure.step('Ввод сообщения в строку input')
-    def input_text(self, string, message):
-        self.driver.find_element(*string).send_keys(message)
+    @allure.step('Перенос элемента ингредиента')
+    def drag_and_drop_ingredient(self):
+        self.drag_and_drop_element(locators.basic_functionality_locators.ingredient_button,
+                                   locators.basic_functionality_locators.place_for_ingredient)

@@ -59,5 +59,4 @@ class PasswordRecoveryPage(BasePage):
 
     @allure.step('Ввод пароля')
     def input_password_text(self):
-        self.driver.find_element(*locators.password_recovery_locators.string_input_email).send_keys(
-            data.variables.password_for_recovery)
+        self.input_text(locators.password_recovery_locators.string_input_email, data.variables.password_for_recovery)

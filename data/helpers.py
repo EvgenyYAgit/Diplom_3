@@ -43,7 +43,7 @@ def generate_unique_data():
 
 
 @allure.step('Создание пользователя по api, логин и возврат токена для удаления')
-def login_unique_user(driver):
+def login_unique_user():
     payload = generate_unique_data()
     response = requests.post(data.urls.url_for_register, data=payload)
     headers = response.json()['accessToken']
@@ -51,9 +51,14 @@ def login_unique_user(driver):
     token = headers
     user_email = data_user['email']
     user_password = data_user['password']
-    driver.click_on_section(locators.personal_area_locators.personal_area)
-    driver.wait_element_located(locators.personal_area_locators.entrance_text)
-    driver.input_text(locators.personal_area_locators.string_input_email, user_email)
-    driver.input_text(locators.personal_area_locators.string_input_password, user_password)
-    driver.click_on_section(locators.personal_area_locators.entrance_button)
-    return token
+    return token, user_email, user_password
+
+
+@allure.step('Логин сгенерированного пользователя')
+def login(page, user_email, user_password):
+    page.click_on_section(locators.personal_area_locators.personal_area)
+    page.wait_element_located(locators.personal_area_locators.entrance_text)
+    page.input_text(locators.personal_area_locators.string_input_email, user_email)
+    page.input_text(locators.personal_area_locators.string_input_password, user_password)
+    page.wait_element_clickable(locators.personal_area_locators.entrance_button)
+    page.click_on_section(locators.personal_area_locators.entrance_button)

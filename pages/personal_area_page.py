@@ -42,7 +42,3 @@ class PersonalArea(BasePage):
     def get_text_history_order_button(self):
         text = self.get_text_of_element(locators.personal_area_locators.history_order_button)
         return text
-
-    @allure.step('Ввод сообщения в строку input')
-    def input_text(self, string, message):
-        self.driver.find_element(*string).send_keys(message)

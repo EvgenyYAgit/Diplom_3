@@ -19,21 +19,23 @@ class TestPersonalArea:
     def test_go_order_history_section(self, driver):
         page = PersonalArea(driver)
         page.go_to_site()
-        token = data.helpers.login_unique_user(page)
+        data_user = data.helpers.login_unique_user()
+        data.helpers.login(page, data_user[1], data_user[2])
         page.click_personal_area()
         page.click_history_order_button()
         excepted = page.get_text_history_order_button()
-        data.helpers.api_user_delete(token)
+        data.helpers.api_user_delete(data_user[0])
         assert data.variables.text_history_orders == excepted
 
     @allure.title('Выход из аккаунта')
     def test_log_out(self, driver):
         page = PersonalArea(driver)
         page.go_to_site()
-        token = data.helpers.login_unique_user(page)
+        data_user = data.helpers.login_unique_user()
+        data.helpers.login(page, data_user[1], data_user[2])
         page.click_personal_area()
         page.click_exit_button()
         page.wait_text_entrance()
         excepted = page.get_text_entrance()
-        data.helpers.api_user_delete(token)
+        data.helpers.api_user_delete(data_user[0])
         assert data.variables.text_entrance == excepted

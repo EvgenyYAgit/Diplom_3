@@ -49,7 +49,7 @@ class TestBasicFunctionality:
     def test_ingredient_counter_increases(self, driver):
         page = BasicFunctionalityPage(driver)
         page.go_to_site()
-        page.drag_and_drop_element()
+        page.drag_and_drop_ingredient()
         page.wait_text_counter_ingredient()
         excepted = page.get_text_counter_ingredient()
         assert data.variables.counter == excepted
@@ -58,8 +58,9 @@ class TestBasicFunctionality:
     def test_logged_user_can_place_order(self, driver):
         page = BasicFunctionalityPage(driver)
         page.go_to_site()
-        token = data.helpers.login_unique_user(page)
+        data_user = data.helpers.login_unique_user()
+        data.helpers.login(page, data_user[1], data_user[2])
         page.click_order_button()
         excepted = page.get_text_cooking_order()
-        data.helpers.api_user_delete(token)
+        data.helpers.api_user_delete(data_user[0])
         assert data.variables.text_order_being_prepared == excepted
