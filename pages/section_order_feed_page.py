@@ -8,9 +8,9 @@ import data.variables
 
 
 class SectionOrderFeed(BasePage):
-    section = locators.section_order_feed_locators
-    basic = locators.basic_functionality_locators
-    area = locators.personal_area_locators
+    section = locators.section_order_feed_locators.SectionOrderFeedLocators
+    basic = locators.basic_functionality_locators.BasicFunctionalityLocators
+    area = locators.personal_area_locators.PersonalAreaLocators
 
     @allure.step('Переход сайт бургеров')
     def go_to_site(self):

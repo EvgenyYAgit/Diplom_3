@@ -6,7 +6,7 @@ import data.variables
 
 
 class PasswordRecoveryPage(BasePage):
-    recovery = locators.password_recovery_locators
+    recovery = locators.password_recovery_locators.PasswordRecoveryLocators
 
     @allure.step('Переход сайт бургеров')
     def go_to_site(self):

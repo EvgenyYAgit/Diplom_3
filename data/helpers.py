@@ -56,9 +56,9 @@ def login_unique_user():
 
 @allure.step('Логин сгенерированного пользователя')
 def login(page, user_email, user_password):
-    page.click_on_section(locators.personal_area_locators.personal_area)
-    page.wait_element_located(locators.personal_area_locators.entrance_text)
-    page.input_text(locators.personal_area_locators.string_input_email, user_email)
-    page.input_text(locators.personal_area_locators.string_input_password, user_password)
-    page.wait_element_clickable(locators.personal_area_locators.entrance_button)
-    page.click_on_section(locators.personal_area_locators.entrance_button)
+    page.click_on_section(locators.personal_area_locators.PersonalAreaLocators.personal_area)
+    page.wait_element_located(locators.personal_area_locators.PersonalAreaLocators.entrance_text)
+    page.input_text(locators.personal_area_locators.PersonalAreaLocators.string_input_email, user_email)
+    page.input_text(locators.personal_area_locators.PersonalAreaLocators.string_input_password, user_password)
+    page.wait_element_clickable(locators.personal_area_locators.PersonalAreaLocators.entrance_button)
+    page.click_on_section(locators.personal_area_locators.PersonalAreaLocators.entrance_button)

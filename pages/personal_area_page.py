@@ -5,7 +5,7 @@ import locators.personal_area_locators
 
 
 class PersonalArea(BasePage):
-    area = locators.personal_area_locators
+    area = locators.personal_area_locators.PersonalAreaLocators
 
     @allure.step('Переход сайт бургеров')
     def go_to_site(self):

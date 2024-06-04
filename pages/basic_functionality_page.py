@@ -5,7 +5,7 @@ from pages.basic_page import BasePage
 
 
 class BasicFunctionalityPage(BasePage):
-    basic = locators.basic_functionality_locators
+    basic = locators.basic_functionality_locators.BasicFunctionalityLocators
 
     @allure.step('Переход сайт бургеров')
     def go_to_site(self):
