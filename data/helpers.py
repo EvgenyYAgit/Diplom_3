@@ -34,17 +34,17 @@ def generate_unique_data():
     user_data.append(email)
     user_data.append(password)
     user_data.append(name)
-    return user_data
-
-
-@allure.step('Создание пользователя по api, логин и возврат токена для удаления')
-def login_unique_user(driver):
-    user_data = generate_unique_data()
     payload = {
         "email": f'{user_data[0]}',
         "password": f'{user_data[1]}',
         "name": f'{user_data[2]}'
     }
+    return payload
+
+
+@allure.step('Создание пользователя по api, логин и возврат токена для удаления')
+def login_unique_user(driver):
+    payload = generate_unique_data()
     response = requests.post(data.urls.url_for_register, data=payload)
     headers = response.json()['accessToken']
     data_user = payload
