@@ -30,11 +30,6 @@ class BasePage:
         text = self.driver.find_element(*text_of_element).text
         return text
 
-    @allure.step('Ожидание элемента и нажатие через скрипт')
-    def wait_and_click(self, element):
-        wait_element = WebDriverWait(self.driver, 30).until(expected_conditions.element_to_be_clickable(element))
-        self.driver.execute_script("arguments[0].click();", wait_element)
-
     @allure.step('Перенос элемента')
     def drag_and_drop_element(self, source, target):
         source = self.driver.find_element(*source)
