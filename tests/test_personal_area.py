@@ -10,7 +10,7 @@ class TestPersonalArea:
     def test_go_personal_account(self, driver):
         page = PersonalArea(driver)
         page.go_to_site()
-        page.wait_and_click_personal_area()
+        page.click_personal_area()
         page.wait_text_entrance()
         excepted = page.get_text_entrance()
         assert data.variables.text_entrance == excepted
